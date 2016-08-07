@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11143.2"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,6 +26,87 @@
             </objects>
             <point key="canvasLocation" x="349" y="93"/>
         </scene>
+        <!--Login Registered View Controller-->
+        <scene sceneID="pN8-d1-qAG">
+            <objects>
+                <viewController storyboardIdentifier="firebaseLoginViewController" id="FMR-lZ-eFa" customClass="LoginRegisteredViewController" customModule="skrjChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qfK-Sh-zLh"/>
+                        <viewControllerLayoutGuide type="bottom" id="vPD-Wf-Pw6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xMV-rW-Dgf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email adress" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fEJ-Oh-0sA">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="PV5-GR-YXs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-V6-XIV">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TaZ-ev-Ybb">
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginClicked:" destination="FMR-lZ-eFa" eventType="touchUpInside" id="MAv-Im-weJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFb-lg-0sx">
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerClicked:" destination="FMR-lZ-eFa" eventType="touchUpInside" id="5Qs-b1-Rp8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cuk-9S-NwS">
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Forgot password">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SGj-4s-zJU">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="h6p-1G-U6Z"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.58823529411764708" green="0.85882352941176465" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="TaZ-ev-Ybb" firstAttribute="top" secondItem="Hhv-V6-XIV" secondAttribute="bottom" constant="36" id="7IB-cs-vR1"/>
+                            <constraint firstItem="rFb-lg-0sx" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="9Vb-6m-QEV"/>
+                            <constraint firstItem="fEJ-Oh-0sA" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="Hdi-9G-zpX"/>
+                            <constraint firstItem="SGj-4s-zJU" firstAttribute="width" secondItem="fEJ-Oh-0sA" secondAttribute="width" multiplier="1.4" id="J7f-MA-pgq"/>
+                            <constraint firstItem="TaZ-ev-Ybb" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="JlW-9P-5Tx"/>
+                            <constraint firstItem="Hhv-V6-XIV" firstAttribute="top" secondItem="fEJ-Oh-0sA" secondAttribute="bottom" constant="19" id="Sgh-p9-nyl"/>
+                            <constraint firstItem="cuk-9S-NwS" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="cFV-qG-cAt"/>
+                            <constraint firstItem="fEJ-Oh-0sA" firstAttribute="top" secondItem="SGj-4s-zJU" secondAttribute="bottom" constant="46" id="cZD-kp-FXO"/>
+                            <constraint firstItem="fEJ-Oh-0sA" firstAttribute="width" secondItem="Hhv-V6-XIV" secondAttribute="width" id="cnQ-CN-wQA"/>
+                            <constraint firstItem="Hhv-V6-XIV" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="j3u-5X-Js5"/>
+                            <constraint firstItem="rFb-lg-0sx" firstAttribute="top" secondItem="TaZ-ev-Ybb" secondAttribute="bottom" constant="8" id="k0V-Vt-puD"/>
+                            <constraint firstItem="fEJ-Oh-0sA" firstAttribute="centerY" secondItem="xMV-rW-Dgf" secondAttribute="centerY" constant="-45" id="xoj-kn-Fn7"/>
+                            <constraint firstItem="SGj-4s-zJU" firstAttribute="centerX" secondItem="xMV-rW-Dgf" secondAttribute="centerX" id="y1q-Tn-XLt"/>
+                            <constraint firstItem="vPD-Wf-Pw6" firstAttribute="top" secondItem="cuk-9S-NwS" secondAttribute="bottom" constant="20" id="za7-tL-6rf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="fEJ-Oh-0sA" id="4rH-T8-mMM"/>
+                        <outlet property="forgotClicked" destination="cuk-9S-NwS" id="5oO-mv-3Rv"/>
+                        <outlet property="passwordTextField" destination="Hhv-V6-XIV" id="rx4-SU-aTD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mAQ-L7-KUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1240" y="93"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="XLO-q9-UFO">
             <objects>
@@ -42,4 +124,7 @@
             <point key="canvasLocation" x="-471" y="94"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="430" height="368"/>
+    </resources>
 </document>
