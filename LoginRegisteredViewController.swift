@@ -56,6 +56,7 @@ class LoginRegisteredViewController: UIViewController {
         
         FIRAuth.auth()?.signIn(withEmail: email!, password: password!, completion: { (user, error) in
             if let error = error {
+                Utilities().ShowAlert(title: "Error", message: error.localizedDescription, vc: self)
             print(error.localizedDescription)
                 return
             }
