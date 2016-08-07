@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginRegisteredViewController: UIViewController {
 
@@ -16,10 +17,50 @@ class LoginRegisteredViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //logout
+        
+        let fireBaseAuth = FIRAuth.auth()
+        do {
+            try fireBaseAuth?.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out")
+        }
+        
         // Do any additional setup after loading the view.
+        
+        let tap : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginRegisteredViewController.dismissKeyboard)) // Убираем клавиатуру по нажатию пустого экрана
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() { // сама функция которая разрешает закончить редактирование
+    view.endEditing(true)
     }
 
     @IBAction func loginClicked(_ sender: AnyObject) {
+        if (emailTextField.text?.characters.count < 5) {
+            emailTextField.backgroundColor = UIColor.init(red: 0.8, green: 0, blue: 0, alpha: 0.3)
+            return
+        } else {
+            emailTextField.backgroundColor = UIColor.white()
+        }
+        
+        if (passwordTextField.text?.characters.count < 5) {
+            passwordTextField.backgroundColor = UIColor.init(red: 0.8, green: 0, blue: 0, alpha: 0.3)
+            return
+        } else {
+            passwordTextField.backgroundColor = UIColor.white()
+        }
+        
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        
+        FIRAuth.auth()?.signIn(withEmail: email!, password: password!, completion: { (user, error) in
+            if let error = error {
+            print(error.localizedDescription)
+                return
+            }
+            print("Sign In!")
+        })
     }
     
     @IBAction func registerClicked(_ sender: AnyObject) {
