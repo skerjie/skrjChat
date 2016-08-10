@@ -18,9 +18,47 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nst-nF-CVg">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" id="S9j-2P-6wL">
+                                        <frame key="frameInset" minY="92" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S9j-2P-6wL" id="shZ-yl-o91">
+                                            <frame key="frameInset" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tgC-yr-foj">
+                                <color key="backgroundColor" red="0.58823529411764708" green="0.85882352941176465" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ogh-f2-N13"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tgC-yr-foj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9xp-KE-Sc0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tgC-yr-foj" secondAttribute="bottom" id="G09-fC-h8O"/>
+                            <constraint firstItem="nst-nF-CVg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="MeW-QL-pKk"/>
+                            <constraint firstAttribute="trailing" secondItem="tgC-yr-foj" secondAttribute="trailing" id="OWX-3W-rcy"/>
+                            <constraint firstItem="tgC-yr-foj" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="eDU-Ps-amZ"/>
+                            <constraint firstItem="tgC-yr-foj" firstAttribute="top" secondItem="nst-nF-CVg" secondAttribute="bottom" id="qFG-E7-gSU"/>
+                            <constraint firstAttribute="trailing" secondItem="nst-nF-CVg" secondAttribute="trailing" id="vCe-1O-CGH"/>
+                            <constraint firstItem="nst-nF-CVg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wHK-hy-yks"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ra9-Kw-aQd"/>
+                    <connections>
+                        <outlet property="tableView" destination="nst-nF-CVg" id="eOm-Wt-t5h"/>
+                        <outlet property="textField" destination="tgC-yr-foj" id="WuB-xx-Z1E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
