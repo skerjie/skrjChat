@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var messages: [FIRDataSnapshot]! = [FIRDataSnapshot]()
-    @IBOutlet weak var tableView: UITableView!
+    var ref: FIRDatabaseReference!
+    private var _refHandle: FIRDatabaseHandle!
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -24,6 +26,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.navigationController?.present(vc!, animated: true, completion: nil)
         }
+    }
+    
+    deinit {
+        self.ref.child("messages").removeObserver(withHandle: _refHandle)
+    }
+    
+    func ConfigureDatabase () {
+        ref = FIRDatabase.database().reference()
+        
+        _refHandle = self.ref.child("messages").observe(.childAdded, with: {(snapshot) -> Void in
+            self.messages.append(snapshot)
+            self.tableView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -39,8 +54,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let messageSnap: FIRDataSnapshot! = self.messages[indexPath.row]
         let message = messageSnap.value as! Dictionary<String,String>
-        let text = message["text"] as String!
+        if let text = message[Constants.MessageField.text] as String! {
         cell.textLabel?.text = text
+        }
         return cell
     }
 
@@ -52,9 +68,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.dataSource = self
         self.textField.delegate = self
         
+        ConfigureDatabase()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
+    }
+    
+    func SendMessage(data: [String: String]) {
+        let packet = data
+        self.ref.child("message").childByAutoId().setValue(packet)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,6 +109,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let data = [Constants.MessageField.text: textField.text! as String]
+        SendMessage(data: data)
         print("ended editing")
         self.view.endEditing(true)
         return true
