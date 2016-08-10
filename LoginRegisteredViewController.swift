@@ -105,7 +105,21 @@ class LoginRegisteredViewController: UIViewController {
         return true
     }
     
-    @IBOutlet weak var forgotClicked: UIButton!
+    
+    @IBAction func forgClicked(_ sender: AnyObject) {
+        if (!emailTextField.text!.isEmpty) {
+            let email = self.emailTextField.text
+            
+            FIRAuth.auth()?.sendPasswordReset(withEmail: email!, completion: { (error) in
+                if let error = error {
+                    Utilities().ShowAlert(title: "Error", message: error.localizedDescription, vc: self)
+                    return
+                }
+                Utilities().ShowAlert(title: "Success!", message: "Please check you email!", vc: self)
+            })
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

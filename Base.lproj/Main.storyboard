@@ -72,6 +72,9 @@
                                 <state key="normal" title="Forgot password">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="forgClicked:" destination="FMR-lZ-eFa" eventType="touchUpInside" id="Y2T-MD-WhI"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="SGj-4s-zJU">
                                 <constraints>
@@ -99,7 +102,6 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="fEJ-Oh-0sA" id="4rH-T8-mMM"/>
-                        <outlet property="forgotClicked" destination="cuk-9S-NwS" id="5oO-mv-3Rv"/>
                         <outlet property="passwordTextField" destination="Hhv-V6-XIV" id="rx4-SU-aTD"/>
                     </connections>
                 </viewController>
