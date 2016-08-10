@@ -51,7 +51,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.textField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
+    }
+    
+    func keyboardWillHide (_ sender: Notification) {
+        let userInfo: [NSObject:AnyObject] = (sender as NSNotification).userInfo!
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.cgRectValue().size
+        
+        self.view.frame.origin.y += keyboardSize.height
+    }
+    
+    func keyboardWillShow(_ sender: NSNotification) {
+        let userInfo: [NSObject:AnyObject] = sender.userInfo!
+        let keyboardSize: CGSize = userInfo[UIKeyboardFrameBeginUserInfoKey]!.cgRectValue().size
+        let offset: CGSize = userInfo[UIKeyboardFrameEndUserInfoKey]!.cgRectValue().size
+        
+        if keyboardSize.height == offset.height {
+            if self.view.frame.origin.y == 0 {
+                UIView.animate(withDuration: 0.15, animations:{ self.view.frame.origin.y -= keyboardSize.height
+            })
+        }
+        } else {
+            UIView.animate(withDuration: 0.1, animations: {self.view.frame.origin.y += keyboardSize.height - offset.height})
+        }
+    }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("ended editing")
