@@ -18,12 +18,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         if (FIRAuth.auth()?.currentUser == nil) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "firebaseLoginViewController")
-            
             self.navigationController?.present(vc!, animated: true, completion: nil)
         }
     }
@@ -57,6 +56,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let text = message[Constants.MessageField.text] as String! {
         cell.textLabel?.text = text
         }
+        if let subText = message[Constants.MessageField.dateTime] {
+            cell.detailTextLabel?.text = subText
+        }
         return cell
     }
 
@@ -76,7 +78,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func SendMessage(data: [String: String]) {
-        let packet = data
+        var packet = data
+        packet[Constants.MessageField.dateTime] = Utilities().GetDate()
         self.ref.child("message").childByAutoId().setValue(packet)
     }
     
@@ -109,9 +112,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField.text?.characters.count == 0) {
+            return true
+        }
         let data = [Constants.MessageField.text: textField.text! as String]
         SendMessage(data: data)
         print("ended editing")
+        textField.text = ""
         self.view.endEditing(true)
         return true
     }

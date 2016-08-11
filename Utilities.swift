@@ -16,4 +16,11 @@ class Utilities {
         alert.addAction(UIAlertAction(title: title, style: .default, handler: nil))
         vc.present(alert, animated: true, completion: nil)
     }
+    
+    func GetDate () -> String {
+        let today: Date = Date()
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "DD-mm-yyyy HH:mm"
+        return dateFormatter.string(from: today)
+    }
 }
